@@ -9,7 +9,7 @@ int ft_isalpha(std::string string)
 
 	while (string[i])
 	{
-		if (!(string[i] >= '0' && string[i] <= '9') && string[i] != '.')
+		if (!(string[i] >= '0' && string[i] <= '9') && string[i] != '.' && string[i] != '-' && string[i] != '+')
 			if (!(string[i] == 'f' && string[i + 1] == '\0'))
 				return (1);
 		i++;
@@ -20,21 +20,21 @@ int ft_isalpha(std::string string)
 void ScalarConverter::convert(std::string string) {
 	if (string == "-inff" || string == "-inf")
 	{
-        std::cout << "char : nope" << std::endl;
-		std::cout << "int : -inf" << std::endl;
+		std::cout << "char : nope can't be displayed" << std::endl;
+		std::cout << "int : nope" << std::endl;
 		std::cout << "float : -inff" << std::endl;
 		std::cout << "double : -inf" << std::endl;
 	}
 	else if (string == "+inff" || string == "+inf")
 	{
-			std::cout << "char : nope" << std::endl;
-			std::cout << "int : +inf" << std::endl;
+			std::cout << "char : nope can't be displayed" << std::endl;
+			std::cout << "int : nope" << std::endl;
 			std::cout << "float : +inff" << std::endl;
 			std::cout << "double : +inf" << std::endl;
 	}
 	else if (string == "nan")
 	{
-			std::cout << "char : nope" << std::endl;
+			std::cout << "char : nope can't be displayed" << std::endl;
 			std::cout << "int : nope" << std::endl;
 			std::cout << "float : nanf" << std::endl;
 			std::cout << "double : nan" << std::endl;
@@ -44,13 +44,13 @@ void ScalarConverter::convert(std::string string) {
 		if (string.size() < 2)
 		{
 			std::cout << "char : " << string << std::endl;
-			std::cout << "int : " << atoi(string.c_str()) << std::endl;
-			std::cout << "float : " << atoi(string.c_str()) << ".0f" << std::endl;
-			std::cout << "double : " << atoi(string.c_str()) << ".0" << std::endl;
+			std::cout << "int : " << static_cast<int>(string[0]) << std::endl;
+			std::cout << "float : " << static_cast<float>(string[0]) << ".0f" << std::endl;
+			std::cout << "double : " << static_cast<double>(string[0]) << std::endl;
 		}
 		else
 		{
-			std::cout << "char : nope" << std::endl;
+			std::cout << "char : nope it's a string" << std::endl;
 			std::cout << "int : nope" << std::endl;
 			std::cout << "float : nope" << std::endl;
 			std::cout << "double : nope" << std::endl;
@@ -58,18 +58,22 @@ void ScalarConverter::convert(std::string string) {
 	}
 	else
 	{
-		if ((char) atoi(string.c_str()) > 32 && (float) atof(string.c_str()) == (int) atof(string.c_str()))
-				std::cout << "char : " << (char) atoi(string.c_str()) << std::endl;
+		if (std::atoi(string.c_str()) > 32 && std::atoi(string.c_str()) < 127 && std::atof(string.c_str()) == std::atoi(string.c_str()))
+			std::cout << "char : " << static_cast<char>(std::atoi(string.c_str())) << std::endl;
 		else
-			std::cout << "char : nope" << std::endl;
-		std::cout << "int : " << atoi(string.c_str()) << std::endl;
-		if ((float) atof(string.c_str()) == (int) atof(string.c_str()))
-			std::cout << "float : " << atoi(string.c_str()) << ".0f" << std::endl;
+			std::cout << "char : nope can't be displayed" << std::endl;
+
+		std::cout << "int : " << static_cast<int>(std::atoi(string.c_str())) << std::endl;
+
+		if (std::atof(string.c_str()) == std::atoi(string.c_str()))
+		{
+			std::cout << "float : " << static_cast<float>(std::atof(string.c_str())) << ".0f" << std::endl;
+			std::cout << "double : " << static_cast<double>(std::atof(string.c_str())) << ".0" << std::endl;
+		}
 		else
-			std::cout << "float : " << (float) atof(string.c_str()) << "f" << std::endl;
-		if (atof(string.c_str()) == (int) atof(string.c_str()))
-			std::cout << "double : " << atoi(string.c_str()) << ".0" << std::endl;
-		else
-			std::cout << "double : " << (float) atof(string.c_str()) << std::endl;
+		{
+			std::cout << "float : " << static_cast<float>(std::atof(string.c_str())) << "f" << std::endl;
+			std::cout << "double : " << static_cast<double>(std::atof(string.c_str())) << std::endl;
+		}
 	}
 }
