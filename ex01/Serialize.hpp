@@ -11,6 +11,9 @@ typedef struct Data {
 class Serialize {
 	private:
 		Serialize(void);
+		Serialize(Serialize& copy);
+		Serialize& operator=(Serialize& copy);
+		~Serialize(void);
 	public:
 		static uintptr_t	serialize(Data *ptr);
 		static Data	*deserialize(uintptr_t raw);
